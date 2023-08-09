@@ -27,3 +27,15 @@ class Contracts:
             f"{address}"
         )
         return url
+    
+    @staticmethod
+    def get_contract_creator(addresses: list) -> str:
+        url = (
+            f"{fields.MODULE}"
+            f"{modules.CONTRACT}"
+            f"{fields.ACTION}"
+            f"{actions.GET_CTEATOR}"
+            f"{fields.CONTRACT_ADDRESSES}"
+            f"{addresses}"
+        )
+        return url

@@ -50,6 +50,7 @@ class ActionsEnum:
     GET_BLOCK_REWARD: str = "getblockreward"
     GET_MINED_BLOCKS: str = "getminedblocks"
     GET_SOURCE_CODE: str = "getsourcecode"
+    GET_CTEATOR:str = "getcontractcreation"
     GET_STATUS: str = "getstatus"
     GET_TX_RECEIPT_STATUS: str = "gettxreceiptstatus"
     TOKEN_BALANCE_HISTORY: str = "tokenbalancehistory"
@@ -61,3 +62,4 @@ class ActionsEnum:
     TOKENTX: str = "tokentx"
     TXLIST_INTERNAL: str = "txlistinternal"
     TXLIST: str = "txlist"
+    GET_LOG:str="getLogs"

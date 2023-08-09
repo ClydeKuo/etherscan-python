@@ -10,10 +10,10 @@ from etherscan.utils.parsing import ResponseParser as parser
 
 
 class Etherscan:
-    def __new__(cls, api_key: str, net: str = "MAIN"):
+    def __new__(cls, api_key: str,net: str = "MAIN", proxies:object={}):
         with resources.path(configs, f"{net.upper()}-stable.json") as path:
             config_path = str(path)
-        return cls.from_config(api_key=api_key, config_path=config_path, net=net)
+        return cls.from_config(api_key=api_key,config_path=config_path, net=net,proxies=proxies)
 
     @staticmethod
     def __load_config(config_path: str) -> dict:
@@ -21,7 +21,7 @@ class Etherscan:
             return json.load(f)
 
     @staticmethod
-    def __run(func, api_key: str, net: str):
+    def __run(func, api_key: str, net: str,proxies:object):
         def wrapper(*args, **kwargs):
             url = (
                 f"{fields.PREFIX.format(net.lower()).replace('-main','')}"
@@ -29,16 +29,16 @@ class Etherscan:
                 f"{fields.API_KEY}"
                 f"{api_key}"
             )
-            r = requests.get(url, headers={"User-Agent": ""})
+            r = requests.get(url, headers={"User-Agent": ""}, proxies=proxies)
             return parser.parse(r)
 
         return wrapper
 
     @classmethod
-    def from_config(cls, api_key: str, config_path: str, net: str):
+    def from_config(cls, api_key: str, config_path: str, net: str,proxies:object):
         config = cls.__load_config(config_path)
         for func, v in config.items():
             if not func.startswith("_"):  # disabled if _
                 attr = getattr(getattr(etherscan, v["module"]), func)
-                setattr(cls, func, cls.__run(attr, api_key, net))
+                setattr(cls, func, cls.__run(attr, api_key, net, proxies))
         return cls

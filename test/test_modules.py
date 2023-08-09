@@ -86,3 +86,6 @@ class TestTokens(Case):
 
 class TestTransactions(Case):
     _MODULE = "transactions"
+
+class TestLog(Case):
+    _MODULE = "log"

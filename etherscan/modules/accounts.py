@@ -170,7 +170,7 @@ class Accounts:
 
     @staticmethod
     def get_erc20_token_transfer_events_by_address(
-        address: str, startblock: int, endblock: int, sort: str,
+        address: str, startblock: int, endblock: int, sort: str,contract_address:str=None
     ) -> str:
         # NOTE: Returns the last 10k events
         url = (
@@ -180,6 +180,8 @@ class Accounts:
             f"{actions.TOKENTX}"
             f"{fields.ADDRESS}"
             f"{address}"
+            f"{fields.CONTRACT_ADDRESS if contract_address is not None else ''}"
+            f"{contract_address if contract_address is not None else ''}"
             f"{fields.START_BLOCK}"
             f"{str(startblock)}"
             f"{fields.END_BLOCK}"
